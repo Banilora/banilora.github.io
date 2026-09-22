@@ -1,114 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BaniLora</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banilora</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            color: #222;
+        }
 
-    header {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
+        header {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
 
-    header h1 {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
 
-    header p {
-      font-size: 17px;
-    }
+        header p {
+            margin: 8px 0 0;
+        }
 
-    .hero {
-      text-align: center;
-      padding: 50px 20px;
-      background: white;
-    }
+        .producto {
+            background: white;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
-    .hero h2 {
-      font-size: 30px;
-      margin-bottom: 15px;
-    }
+        .producto img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
 
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 25px;
-    }
+        .producto h2 {
+            margin-bottom: 10px;
+        }
 
-    .boton {
-      display: inline-block;
-      background: #111;
-      color: white;
-      text-decoration: none;
-      padding: 14px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
+        .precio {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 15px;
+        }
 
-    .productos {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+        .boton {
+            display: inline-block;
+            background: #111;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    .productos h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+        .boton:hover {
+            background: #333;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .producto {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-
-    .producto h3 {
-      margin-bottom: 10px;
-    }
-
-    .producto p {
-      margin-bottom: 15px;
-    }
-
-    footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 30px;
-    }
-  </style>
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+    </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>BaniLora</h1>
-    <p>Productos y cosas que te pueden hacer la vida más fácil</p>
-  </header>
+<header>
+    <h1>Banilora</h1>
+    <p>Productos que te hacen la vida más fácil</p>
+</header>
 
-  <section class="hero">
-    <h2>Bienvenido a BaniLora</h2>
-    <p>Descubre productos interesantes, útiles y con estilo.</
+<div class="producto">
+
+    <img src="https://via.placeholder.com/400x300?text=Auriculares+Bluetooth"
+         alt="Auriculares Bluetooth">
+
+    <h2>Auriculares Bluetooth Pro</h2>
+
+    <p>
+        Auriculares inalámbricos compactos, ideales para música,
+        llamadas y uso diario.
+    </p>
+
+    <div class="precio">19,99 €</div>
+
+    <a class="boton" href="#">
+        Comprar ahora
+    </a>
+
+</div>
+
+<footer>
+    © 2026 Banilora
+</footer>
+
+</body>
+</html>
