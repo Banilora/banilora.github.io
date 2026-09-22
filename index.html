@@ -3,30 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banilora - Tienda Online</title>
+    <title>Banilora - Tienda Online Oficial</title>
 
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f7f7f7;
             color: #222;
+        }
+
+        /* Barra superior de anuncios */
+        .top-bar {
+            background: #25D366;
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
         header {
             background: #111;
             color: white;
             text-align: center;
-            padding: 25px;
+            padding: 30px 20px;
         }
 
         header h1 {
             margin: 0;
-            font-size: 32px;
+            font-size: 34px;
+            letter-spacing: 1px;
         }
 
         header p {
             margin: 8px 0 0;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* Bloque de garantías y fiabilidad */
+        .garantias {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 25px auto -10px;
+            padding: 0 20px;
+        }
+
+        .garantia-item {
+            background: white;
+            border: 1px solid #e2e2e2;
+            border-radius: 10px;
+            padding: 15px 20px;
+            flex: 1 1 250px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .garantia-item div {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .garantia-item h4 {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #111;
+        }
+
+        .garantia-item p {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
         }
 
         /* Rejilla de productos */
@@ -43,11 +95,17 @@
             background: white;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .producto:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
         .producto img {
@@ -99,20 +157,69 @@
             background: #1EBE57;
         }
 
+        /* Sección de confianza final */
+        .confianza-seccion {
+            background: white;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .confianza-seccion h3 {
+            margin-top: 0;
+            color: #111;
+        }
+
+        .confianza-seccion p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+            max-width: 700px;
+            margin: 10px auto 0;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
             color: #777;
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
 
+<!-- Anuncio superior con envíos -->
+<div class="top-bar">
+    🚚 Envíos a toda España y Canarias | 🔒 Compra 100% Segura por WhatsApp
+</div>
+
 <header>
     <h1>Banilora</h1>
-    <p>Productos que te hacen la vida más fácil</p>
+    <p>Productos seleccionados que te hacen la vida más fácil</p>
 </header>
+
+<!-- Puntos clave de confianza -->
+<section class="garantias">
+    <div class="garantia-item">
+        <div>📦</div>
+        <h4>Envíos España y Canarias</h4>
+        <p>Recibe tu pedido en la puerta de tu casa con total comodidad.</p>
+    </div>
+    <div class="garantia-item">
+        <div>💬</div>
+        <h4>Atención Cercana</h4>
+        <p>Haces tu pedido directo por WhatsApp. Respuestas rápidas y personalizadas.</p>
+    </div>
+    <div class="garantia-item">
+        <div>🛡️</div>
+        <h4>Garantía de Satisfacción</h4>
+        <p>Productos comprobados y asegurados con el compromiso Banilora.</p>
+    </div>
+</section>
 
 <!-- Catálogo de productos -->
 <section class="catalogo">
@@ -133,8 +240,18 @@
 
 </section>
 
+<!-- Sección Por qué confiar en Banilora -->
+<section class="confianza-seccion">
+    <h3>¿Por qué comprar en Banilora?</h3>
+    <p>
+        En <strong>Banilora</strong> nos aseguramos de que cada compra sea transparente, segura y sin complicaciones. 
+        Tratas directamente con nosotros a través de WhatsApp para resolver cualquier duda antes y después de tu compra. 
+        Enviamos a cualquier punto de la Península y Canarias.
+    </p>
+</section>
+
 <footer>
-    © 2026 Banilora
+    © 2026 Banilora · Tienda Online Oficial
 </footer>
 
 </body>
