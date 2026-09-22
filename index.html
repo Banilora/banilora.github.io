@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banilora</title>
+    <title>Banilora - Tienda Online</title>
 
     <style>
         body {
@@ -29,41 +29,61 @@
             margin: 8px 0 0;
         }
 
+        /* Rejilla de productos */
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
         .producto {
             background: white;
-            max-width: 400px;
-            margin: 40px auto;
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .producto img {
             width: 100%;
-            max-height: 300px;
-            object-fit: contain;
+            height: 220px;
+            object-fit: cover;
             border-radius: 10px;
         }
 
         .producto h2 {
-            margin-bottom: 10px;
+            margin: 15px 0 8px;
+            font-size: 20px;
+        }
+
+        .producto p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.4;
+            flex-grow: 1;
         }
 
         .precio {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
-            margin: 15px;
+            margin: 15px 0;
         }
 
         .boton {
             display: inline-block;
             background: #111;
             color: white;
-            padding: 14px 25px;
+            padding: 12px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
+            transition: background 0.2s;
         }
 
         .boton:hover {
@@ -85,25 +105,44 @@
     <p>Productos que te hacen la vida más fácil</p>
 </header>
 
-<div class="producto">
+<!-- Catálogo con múltiples productos -->
+<section class="catalogo">
 
-    <img src="https://via.placeholder.com/400x300?text=Auriculares+Bluetooth"
-         alt="Auriculares Bluetooth">
+    <!-- Producto 1 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Auriculares Bluetooth">
+        <h2>Auriculares Bluetooth Pro</h2>
+        <p>Inalámbricos, con cancelación de ruido y gran calidad de sonido para el día a día.</p>
+        <div class="precio">19,99 €</div>
+        <!-- Cambia el número 34600000000 por tu número con código de país (ej: 34 para España) -->
+        <a class="boton" href="https://wa.me/34600000000?text=Hola,%20quiero%20comprar%20los%20Auriculares%20Bluetooth%20Pro" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
 
-    <h2>Auriculares Bluetooth Pro</h2>
+    <!-- Producto 2 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Reloj Inteligente">
+        <h2>Smartwatch Deportivo</h2>
+        <p>Monitoriza tus pasos, frecuencia cardíaca y notificaciones en tiempo real.</p>
+        <div class="precio">29,99 €</div>
+        <a class="boton" href="https://wa.me/34600000000?text=Hola,%20quiero%20comprar%20el%20Smartwatch%20Deportivo" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
 
-    <p>
-        Auriculares inalámbricos compactos, ideales para música,
-        llamadas y uso diario.
-    </p>
+    <!-- Producto 3 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1608248597260-50c805584223?auto=format&fit=crop&w=500&q=80" alt="Soporte Magsafe">
+        <h2>Soporte Móvil Carga Rápida</h2>
+        <p>Diseño compacto de escritorio con carga inalámbrica de alta velocidad.</p>
+        <div class="precio">14,95 €</div>
+        <a class="boton" href="https://wa.me/34600000000?text=Hola,%20quiero%20comprar%20el%20Soporte%20Móvil" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
 
-    <div class="precio">19,99 €</div>
-
-    <a class="boton" href="#">
-        Comprar ahora
-    </a>
-
-</div>
+</section>
 
 <footer>
     © 2026 Banilora
