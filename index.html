@@ -10,7 +10,12 @@
 
     <style>
         body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f7f7f7; color: #222; }
+        
+        /* Barras Informativas Superiores */
         .top-bar { background: #25D366; color: white; text-align: center; padding: 8px 15px; font-size: 14px; font-weight: bold; }
+        .payment-bar { background: #222; color: #fff; text-align: center; padding: 8px 15px; font-size: 13px; border-bottom: 1px solid #333; }
+        .payment-bar span { margin: 0 10px; display: inline-block; }
+
         header { background: #111; color: white; padding: 20px; }
         .header-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
@@ -29,6 +34,7 @@
         .precio-anterior { text-decoration: line-through; color: #999; font-size: 13px; margin-right: 6px; }
         .precio { font-size: 19px; font-weight: bold; color: #d32f2f; display: inline-block; }
         .boton { display: block; background: #25D366; color: white; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; }
+        .boton:hover { background: #1EBE57; }
         
         footer { background: #111; color: #ccc; text-align: center; padding: 30px 20px; font-size: 13px; margin-top: 50px; }
         footer a { color: #25D366; text-decoration: none; margin: 0 10px; }
@@ -38,6 +44,9 @@
 
 <div class="top-bar">
     🚚 Envíos a toda España y Canarias | 🔒 Compra Segura por WhatsApp
+</div>
+<div class="payment-bar">
+    💳 Métodos de Pago Disponibles: <span>📦 <b>Contra Reembolso</b> (Paga al recibir)</span> | <span>📱 <b>Bizum</b></span> | <span>🏦 <b>Transferencia Bancaria</b></span>
 </div>
 
 <header>
@@ -62,8 +71,9 @@
 
 <footer>
     <p>© 2026 Banilora · Marketplace Oficial</p>
+    <p>Aceptamos Contra Reembolso · Bizum · Transferencia (Titular: Lennier Martínez Espino)</p>
     <p>
-        <a href="https://wa.me/34622101177?text=Hola,%20tengo%20una%20duda%20sobre%20los%20env%C3%ADos" target="_blank">Envíos y Devoluciones</a> | 
+        <a href="https://wa.me/34622101177?text=Hola,%20tengo%20una%20duda%20sobre%20los%20env%C3%ADos%20o%20m%C3%A9todos%20de%20pago" target="_blank">Envíos y Formas de Pago</a> | 
         <a href="https://wa.me/34622101177?text=Hola,%20necesito%20atenci%C3%B3n%20al%20cliente" target="_blank">Atención al Cliente</a>
     </p>
 </footer>
