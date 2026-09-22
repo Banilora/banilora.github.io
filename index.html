@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banilora - Tienda Online Oficial</title>
+    <title>Banilora - Marketplace Online Oficial</title>
+
+    <!-- SDKs de Firebase para Inicio de Sesión / Registro (Compatibilidad) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <style>
         body {
@@ -13,7 +17,7 @@
             color: #222;
         }
 
-        /* Barra superior de anuncios */
+        /* Barra de Envíos Superior */
         .top-bar {
             background: #25D366;
             color: white;
@@ -21,35 +25,108 @@
             padding: 8px 15px;
             font-size: 14px;
             font-weight: bold;
-            letter-spacing: 0.5px;
         }
 
         header {
             background: #111;
             color: white;
-            text-align: center;
-            padding: 30px 20px;
+            padding: 20px;
+        }
+
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
             margin: 0;
-            font-size: 34px;
+            font-size: 28px;
             letter-spacing: 1px;
         }
 
-        header p {
-            margin: 8px 0 0;
-            color: #ccc;
-            font-size: 16px;
+        /* Menú de Usuario y Registro */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Bloque de garantías y fiabilidad */
+        .btn-auth {
+            background: #fff;
+            color: #111;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Modal / Ventana Emergente de Registro */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .auth-btn-google {
+            background: #4285F4;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        /* Sección de Garantías y Confianza */
         .garantias {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 25px auto -10px;
             padding: 0 20px;
         }
@@ -59,7 +136,7 @@
             border: 1px solid #e2e2e2;
             border-radius: 10px;
             padding: 15px 20px;
-            flex: 1 1 250px;
+            flex: 1 1 220px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
@@ -71,7 +148,7 @@
 
         .garantia-item h4 {
             margin: 5px 0;
-            font-size: 16px;
+            font-size: 15px;
             color: #111;
         }
 
@@ -81,10 +158,10 @@
             color: #666;
         }
 
-        /* Rejilla de productos */
+        /* Rejilla de Productos */
         .catalogo {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
             max-width: 1100px;
             margin: 40px auto;
@@ -100,17 +177,16 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
         }
 
         .producto:hover {
             transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
         .producto img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: contain;
             border-radius: 10px;
             background: #fff;
@@ -118,11 +194,11 @@
 
         .producto h2 {
             margin: 15px 0 8px;
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .producto p {
-            font-size: 14px;
+            font-size: 13px;
             color: #555;
             line-height: 1.4;
             flex-grow: 1;
@@ -131,12 +207,12 @@
         .precio-anterior {
             text-decoration: line-through;
             color: #888;
-            font-size: 16px;
+            font-size: 15px;
             margin-right: 8px;
         }
 
         .precio {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             color: #d32f2f;
             margin: 15px 0;
@@ -146,39 +222,15 @@
             display: inline-block;
             background: #25D366;
             color: white;
-            padding: 12px 20px;
+            padding: 12px 18px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            transition: background 0.2s;
+            font-size: 14px;
         }
 
         .boton:hover {
             background: #1EBE57;
-        }
-
-        /* Sección de confianza final */
-        .confianza-seccion {
-            background: white;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-
-        .confianza-seccion h3 {
-            margin-top: 0;
-            color: #111;
-        }
-
-        .confianza-seccion p {
-            color: #555;
-            line-height: 1.6;
-            font-size: 15px;
-            max-width: 700px;
-            margin: 10px auto 0;
         }
 
         footer {
@@ -192,43 +244,71 @@
 
 <body>
 
-<!-- Anuncio superior con envíos -->
 <div class="top-bar">
-    🚚 Envíos a toda España y Canarias | 🔒 Compra 100% Segura por WhatsApp
+    🚚 Envíos a toda España y Canarias | 🔒 Compra Segura por WhatsApp
 </div>
 
 <header>
-    <h1>Banilora</h1>
-    <p>Productos seleccionados que te hacen la vida más fácil</p>
+    <div class="header-content">
+        <h1>Banilora</h1>
+        <div class="user-menu">
+            <span id="user-info" style="font-size: 14px; color: #ccc;"></span>
+            <button id="auth-action-btn" class="btn-auth" onclick="toggleAuthModal()">Iniciar Sesión</button>
+        </div>
+    </div>
 </header>
 
-<!-- Puntos clave de confianza -->
+<!-- Modal de Registro e Inicio de Sesión -->
+<div id="auth-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="toggleAuthModal()">&times;</span>
+        <h3>Acceder a Banilora</h3>
+
+        <button class="auth-btn-google" onclick="loginWithGoogle()">
+            Acceder con Google (Gmail)
+        </button>
+
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+
+        <div class="form-group">
+            <input type="email" id="email" placeholder="Correo electrónico">
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Contraseña">
+        </div>
+        <button class="btn-auth" style="background:#111; color:white; width:100%; padding:10px; border-radius:6px;" onclick="loginWithEmail()">
+            Entrar / Registrarse
+        </button>
+    </div>
+</div>
+
+<!-- Barra de Confianza -->
 <section class="garantias">
     <div class="garantia-item">
         <div>📦</div>
         <h4>Envíos España y Canarias</h4>
-        <p>Recibe tu pedido en la puerta de tu casa con total comodidad.</p>
+        <p>Recibe tus compras cómodamente en tu domicilio.</p>
     </div>
     <div class="garantia-item">
         <div>💬</div>
-        <h4>Atención Cercana</h4>
-        <p>Haces tu pedido directo por WhatsApp. Respuestas rápidas y personalizadas.</p>
+        <h4>Pedidos por WhatsApp</h4>
+        <p>Atención directa, rápida y totalmente personalizada.</p>
     </div>
     <div class="garantia-item">
         <div>🛡️</div>
-        <h4>Garantía de Satisfacción</h4>
-        <p>Productos comprobados y asegurados con el compromiso Banilora.</p>
+        <h4>Garantía Banilora</h4>
+        <p>Calidad garantizada en todos nuestros productos.</p>
     </div>
 </section>
 
-<!-- Catálogo de productos -->
+<!-- Catálogo con los 5 Productos Estrella -->
 <section class="catalogo">
 
-    <!-- Producto 1: Lámpara LED -->
+    <!-- Producto 1 -->
     <div class="producto">
-        <img src="lampara.jpg" alt="Lámpara LED Táctil Recargable">
+        <img src="lampara.jpg" alt="Lámpara LED Táctil">
         <h2>Lámpara LED Táctil Recargable</h2>
-        <p>Lámpara moderna de mesa con control táctil, 3 tonos de luz regulables y batería recargable por USB.</p>
+        <p>Elegante lámpara de mesa con 3 niveles de luz táctil y batería recargable USB.</p>
         <div class="precio">
             <span class="precio-anterior">29,99 €</span>
             22,99 €
@@ -238,21 +318,134 @@
         </a>
     </div>
 
-</section>
+    <!-- Producto 2 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80" alt="Auriculares Inalámbricos">
+        <h2>Auriculares Inalámbricos Pro</h2>
+        <p>Sonido de alta fidelidad, cancelación de ruido y estuche con carga rápida.</p>
+        <div class="precio">
+            <span class="precio-anterior">29,99 €</span>
+            19,99 €
+        </div>
+        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20los%20Auriculares%20Inal%C3%A1mbricos%20Pro" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
 
-<!-- Sección Por qué confiar en Banilora -->
-<section class="confianza-seccion">
-    <h3>¿Por qué comprar en Banilora?</h3>
-    <p>
-        En <strong>Banilora</strong> nos aseguramos de que cada compra sea transparente, segura y sin complicaciones. 
-        Tratas directamente con nosotros a través de WhatsApp para resolver cualquier duda antes y después de tu compra. 
-        Enviamos a cualquier punto de la Península y Canarias.
-    </p>
+    <!-- Producto 3 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=500&q=80" alt="Humidificador LED">
+        <h2>Mini Humidificador y Difusor LED</h2>
+        <p>Ambienta tu espacio con niebla ultra silenciosa y luces de colores regulables.</p>
+        <div class="precio">
+            <span class="precio-anterior">22,00 €</span>
+            14,99 €
+        </div>
+        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Mini%20Humidificador%20LED" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=500&q=80" alt="Soporte Coche Carga Rápida">
+        <h2>Soporte Móvil Carga Rápida Coche</h2>
+        <p>Sujeción automática de alta seguridad con carga inalámbrica integrada.</p>
+        <div class="precio">
+            <span class="precio-anterior">24,99 €</span>
+            16,99 €
+        </div>
+        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Soporte%20M%C3%B3vil%20para%20Coche" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="producto">
+        <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=500&q=80" alt="Aspirador Portátil USB">
+        <h2>Aspirador de Mano Inalámbrico USB</h2>
+        <p>Potente succión portátil, ideal para limpiar tu coche, teclado y rincones difíciles.</p>
+        <div class="precio">
+            <span class="precio-anterior">35,00 €</span>
+            24,99 €
+        </div>
+        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Aspirador%20de%20Mano%20Port%C3%A1til" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
+
 </section>
 
 <footer>
-    © 2026 Banilora · Tienda Online Oficial
+    © 2026 Banilora · Marketplace Oficial
 </footer>
+
+<script>
+    // Configuración de tu proyecto Firebase "banilora-95a67"
+    const firebaseConfig = {
+        apiKey: "AIzaSyDBanfsnO94377y9RxiwHMzQaJ6tfN8DEA",
+        authDomain: "banilora-95a67.firebaseapp.com",
+        projectId: "banilora-95a67",
+        storageBucket: "banilora-95a67.firebasestorage.app",
+        messagingSenderId: "877004016062",
+        appId: "1:877004016062:web:ef6e1318a383d6bc5f11ef",
+        measurementId: "G-YV4E68QTVF"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+        const userInfo = document.getElementById('user-info');
+        const authBtn = document.getElementById('auth-action-btn');
+
+        if (user) {
+            userInfo.innerText = user.displayName || user.email;
+            authBtn.innerText = 'Cerrar Sesión';
+            authBtn.onclick = () => auth.signOut();
+            closeAuthModal();
+        } else {
+            userInfo.innerText = '';
+            authBtn.innerText = 'Iniciar Sesión';
+            authBtn.onclick = () => toggleAuthModal();
+        }
+    });
+
+    function toggleAuthModal() {
+        const modal = document.getElementById('auth-modal');
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function closeAuthModal() {
+        document.getElementById('auth-modal').style.display = 'none';
+    }
+
+    function loginWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).catch(error => {
+            alert("Error al iniciar sesión: " + error.message);
+        });
+    }
+
+    function loginWithEmail() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            alert("Introduce correo y contraseña.");
+            return;
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .catch(error => {
+                if (error.code === 'auth/user-not-found') {
+                    return auth.createUserWithEmailAndPassword(email, password);
+                } else {
+                    alert("Error: " + error.message);
+                }
+            });
+    }
+</script>
 
 </body>
 </html>
