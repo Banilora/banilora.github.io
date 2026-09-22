@@ -53,8 +53,9 @@
         .producto img {
             width: 100%;
             height: 220px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 10px;
+            background: #fff;
         }
 
         .producto h2 {
@@ -69,9 +70,17 @@
             flex-grow: 1;
         }
 
+        .precio-anterior {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+
         .precio {
             font-size: 24px;
             font-weight: bold;
+            color: #d32f2f;
             margin: 15px 0;
         }
 
@@ -105,38 +114,19 @@
     <p>Productos que te hacen la vida más fácil</p>
 </header>
 
-<!-- Catálogo con múltiples productos -->
+<!-- Catálogo de productos -->
 <section class="catalogo">
 
-    <!-- Producto 1 -->
+    <!-- Producto 1: Lámpara LED -->
     <div class="producto">
-        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Auriculares Bluetooth">
-        <h2>Auriculares Bluetooth Pro</h2>
-        <p>Inalámbricos, con cancelación de ruido y gran calidad de sonido para el día a día.</p>
-        <div class="precio">19,99 €</div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20los%20Auriculares%20Bluetooth%20Pro" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-    <!-- Producto 2 -->
-    <div class="producto">
-        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Reloj Inteligente">
-        <h2>Smartwatch Deportivo</h2>
-        <p>Monitoriza tus pasos, frecuencia cardíaca y notificaciones en tiempo real.</p>
-        <div class="precio">29,99 €</div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Smartwatch%20Deportivo" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-    <!-- Producto 3 -->
-    <div class="producto">
-        <img src="https://images.unsplash.com/photo-1608248597260-50c805584223?auto=format&fit=crop&w=500&q=80" alt="Soporte Magsafe">
-        <h2>Soporte Móvil Carga Rápida</h2>
-        <p>Diseño compacto de escritorio con carga inalámbrica de alta velocidad.</p>
-        <div class="precio">14,95 €</div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Soporte%20Móvil" target="_blank">
+        <img src="lampara.jpg" alt="Lámpara LED Táctil Recargable">
+        <h2>Lámpara LED Táctil Recargable</h2>
+        <p>Lámpara moderna de mesa con control táctil, 3 tonos de luz regulables y batería recargable por USB.</p>
+        <div class="precio">
+            <span class="precio-anterior">29,99 €</span>
+            22,99 €
+        </div>
+        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20la%20L%C3%A1mpara%20LED%20T%C3%A1ctil" target="_blank">
             Comprar por WhatsApp
         </a>
     </div>
