@@ -5,243 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banilora - Marketplace Online Oficial</title>
 
-    <!-- SDKs de Firebase para Inicio de Sesión / Registro (Compatibilidad) -->
+    <!-- SDKs de Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f7f7f7;
-            color: #222;
-        }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f7f7f7; color: #222; }
+        .top-bar { background: #25D366; color: white; text-align: center; padding: 8px 15px; font-size: 14px; font-weight: bold; }
+        header { background: #111; color: white; padding: 20px; }
+        .header-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
 
-        /* Barra de Envíos Superior */
-        .top-bar {
-            background: #25D366;
-            color: white;
-            text-align: center;
-            padding: 8px 15px;
-            font-size: 14px;
-            font-weight: bold;
-        }
+        /* Controles de Búsqueda y Filtros */
+        .controls-container { max-width: 1100px; margin: 25px auto 10px; padding: 0 20px; display: flex; gap: 15px; flex-wrap: wrap; }
+        .controls-container input, .controls-container select { padding: 12px 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; outline: none; }
+        .controls-container input { flex-grow: 1; }
 
-        header {
-            background: #111;
-            color: white;
-            padding: 20px;
-        }
-
-        .header-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-            letter-spacing: 1px;
-        }
-
-        /* Menú de Usuario y Registro */
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-auth {
-            background: #fff;
-            color: #111;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        /* Modal / Ventana Emergente de Registro */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px; right: 15px;
-            font-size: 20px;
-            cursor: pointer;
-            color: #888;
-        }
-
-        .auth-btn-google {
-            background: #4285F4;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        /* Sección de Garantías y Confianza */
-        .garantias {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 1100px;
-            margin: 25px auto -10px;
-            padding: 0 20px;
-        }
-
-        .garantia-item {
-            background: white;
-            border: 1px solid #e2e2e2;
-            border-radius: 10px;
-            padding: 15px 20px;
-            flex: 1 1 220px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .garantia-item div {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .garantia-item h4 {
-            margin: 5px 0;
-            font-size: 15px;
-            color: #111;
-        }
-
-        .garantia-item p {
-            margin: 0;
-            font-size: 13px;
-            color: #666;
-        }
-
-        /* Rejilla de Productos */
-        .catalogo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .producto {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s;
-        }
-
-        .producto:hover {
-            transform: translateY(-4px);
-        }
-
-        .producto img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 10px;
-            background: #fff;
-        }
-
-        .producto h2 {
-            margin: 15px 0 8px;
-            font-size: 18px;
-        }
-
-        .producto p {
-            font-size: 13px;
-            color: #555;
-            line-height: 1.4;
-            flex-grow: 1;
-        }
-
-        .precio-anterior {
-            text-decoration: line-through;
-            color: #888;
-            font-size: 15px;
-            margin-right: 8px;
-        }
-
-        .precio {
-            font-size: 22px;
-            font-weight: bold;
-            color: #d32f2f;
-            margin: 15px 0;
-        }
-
-        .boton {
-            display: inline-block;
-            background: #25D366;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .boton:hover {
-            background: #1EBE57;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-            font-size: 14px;
-        }
+        /* Catálogo Grid */
+        .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1100px; margin: 20px auto 40px; padding: 0 20px; }
+        .producto { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .producto:hover { transform: translateY(-3px); }
+        .producto img { width: 100%; height: 190px; object-fit: cover; border-radius: 8px; }
+        .producto h2 { margin: 12px 0 6px; font-size: 16px; color: #111; }
+        .producto p { font-size: 12px; color: #666; height: 34px; overflow: hidden; line-height: 1.4; }
+        .precio-box { margin: 12px 0; }
+        .precio-anterior { text-decoration: line-through; color: #999; font-size: 13px; margin-right: 6px; }
+        .precio { font-size: 19px; font-weight: bold; color: #d32f2f; display: inline-block; }
+        .boton { display: block; background: #25D366; color: white; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; }
+        .boton:hover { background: #1EBE57; }
+        footer { text-align: center; padding: 30px; color: #777; font-size: 14px; }
     </style>
 </head>
-
 <body>
 
 <div class="top-bar">
@@ -251,200 +45,106 @@
 <header>
     <div class="header-content">
         <h1>Banilora</h1>
-        <div class="user-menu">
-            <span id="user-info" style="font-size: 14px; color: #ccc;"></span>
-            <button id="auth-action-btn" class="btn-auth" onclick="toggleAuthModal()">Iniciar Sesión</button>
-        </div>
     </div>
 </header>
 
-<!-- Modal de Registro e Inicio de Sesión -->
-<div id="auth-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="toggleAuthModal()">&times;</span>
-        <h3>Acceder a Banilora</h3>
-
-        <button class="auth-btn-google" onclick="loginWithGoogle()">
-            Acceder con Google (Gmail)
-        </button>
-
-        <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
-
-        <div class="form-group">
-            <input type="email" id="email" placeholder="Correo electrónico">
-        </div>
-        <div class="form-group">
-            <input type="password" id="password" placeholder="Contraseña">
-        </div>
-        <button class="btn-auth" style="background:#111; color:white; width:100%; padding:10px; border-radius:6px;" onclick="loginWithEmail()">
-            Entrar / Registrarse
-        </button>
-    </div>
+<!-- Buscador y Filtro por Categorías -->
+<div class="controls-container">
+    <input type="text" id="search-input" placeholder="Buscar entre los 30 productos..." onkeyup="filtrarProductos()">
+    <select id="category-select" onchange="filtrarProductos()">
+        <option value="todos">Todas las categorías</option>
+        <option value="tecnologia">Tecnología y Gadgets</option>
+        <option value="hogar">Hogar e Iluminación</option>
+        <option value="belleza">Belleza y Cuidado Personal</option>
+        <option value="coche">Accesorios de Coche</option>
+        <option value="mascotas">Mascotas</option>
+    </select>
 </div>
 
-<!-- Barra de Confianza -->
-<section class="garantias">
-    <div class="garantia-item">
-        <div>📦</div>
-        <h4>Envíos España y Canarias</h4>
-        <p>Recibe tus compras cómodamente en tu domicilio.</p>
-    </div>
-    <div class="garantia-item">
-        <div>💬</div>
-        <h4>Pedidos por WhatsApp</h4>
-        <p>Atención directa, rápida y totalmente personalizada.</p>
-    </div>
-    <div class="garantia-item">
-        <div>🛡️</div>
-        <h4>Garantía Banilora</h4>
-        <p>Calidad garantizada en todos nuestros productos.</p>
-    </div>
-</section>
-
-<!-- Catálogo con los 5 Productos Estrella -->
-<section class="catalogo">
-
-    <!-- Producto 1 -->
-    <div class="producto">
-        <img src="lampara.jpg" alt="Lámpara LED Táctil">
-        <h2>Lámpara LED Táctil Recargable</h2>
-        <p>Elegante lámpara de mesa con 3 niveles de luz táctil y batería recargable USB.</p>
-        <div class="precio">
-            <span class="precio-anterior">29,99 €</span>
-            22,99 €
-        </div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20la%20L%C3%A1mpara%20LED%20T%C3%A1ctil" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-    <!-- Producto 2 -->
-    <div class="producto">
-        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80" alt="Auriculares Inalámbricos">
-        <h2>Auriculares Inalámbricos Pro</h2>
-        <p>Sonido de alta fidelidad, cancelación de ruido y estuche con carga rápida.</p>
-        <div class="precio">
-            <span class="precio-anterior">29,99 €</span>
-            19,99 €
-        </div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20los%20Auriculares%20Inal%C3%A1mbricos%20Pro" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-    <!-- Producto 3 -->
-    <div class="producto">
-        <img src="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=500&q=80" alt="Humidificador LED">
-        <h2>Mini Humidificador y Difusor LED</h2>
-        <p>Ambienta tu espacio con niebla ultra silenciosa y luces de colores regulables.</p>
-        <div class="precio">
-            <span class="precio-anterior">22,00 €</span>
-            14,99 €
-        </div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Mini%20Humidificador%20LED" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-    <!-- Producto 4 -->
-    <div class="producto">
-        <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=500&q=80" alt="Soporte Coche Carga Rápida">
-        <h2>Soporte Móvil Carga Rápida Coche</h2>
-        <p>Sujeción automática de alta seguridad con carga inalámbrica integrada.</p>
-        <div class="precio">
-            <span class="precio-anterior">24,99 €</span>
-            16,99 €
-        </div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Soporte%20M%C3%B3vil%20para%20Coche" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-    <!-- Producto 5 -->
-    <div class="producto">
-        <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=500&q=80" alt="Aspirador Portátil USB">
-        <h2>Aspirador de Mano Inalámbrico USB</h2>
-        <p>Potente succión portátil, ideal para limpiar tu coche, teclado y rincones difíciles.</p>
-        <div class="precio">
-            <span class="precio-anterior">35,00 €</span>
-            24,99 €
-        </div>
-        <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20Aspirador%20de%20Mano%20Port%C3%A1til" target="_blank">
-            Comprar por WhatsApp
-        </a>
-    </div>
-
-</section>
+<!-- Grid de Productos -->
+<section class="catalogo" id="catalogo-container"></section>
 
 <footer>
     © 2026 Banilora · Marketplace Oficial
 </footer>
 
 <script>
-    // Configuración de tu proyecto Firebase "banilora-95a67"
-    const firebaseConfig = {
-        apiKey: "AIzaSyDBanfsnO94377y9RxiwHMzQaJ6tfN8DEA",
-        authDomain: "banilora-95a67.firebaseapp.com",
-        projectId: "banilora-95a67",
-        storageBucket: "banilora-95a67.firebasestorage.app",
-        messagingSenderId: "877004016062",
-        appId: "1:877004016062:web:ef6e1318a383d6bc5f11ef",
-        measurementId: "G-YV4E68QTVF"
-    };
+    // Listado completo de 30 Productos Estrella
+    const productos = [
+        // TECNOLOGÍA
+        { id: 1, cat: "tecnologia", nombre: "Auriculares Inalámbricos Pro", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500", desc: "Sonido de alta fidelidad con estuche de carga rápida." },
+        { id: 2, cat: "tecnologia", nombre: "Smartwatch Deportivo HD", precio: "24.99", viejo: "39.99", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500", desc: "Monitoreo de pulso, pasos, llamadas y notificaciones." },
+        { id: 3, cat: "tecnologia", nombre: "Mini Proyector Portátil HD", precio: "59.99", viejo: "89.99", img: "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=500", desc: "Cine en casa compacto para conectar tu móvil o consola." },
+        { id: 4, cat: "tecnologia", nombre: "Altavoz Bluetooth Impermeable", precio: "17.99", viejo: "25.00", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500", desc: "Potente sonido portátil para playa, piscina o casa." },
+        { id: 5, cat: "tecnologia", nombre: "Batería Externa PowerBank 20000mAh", precio: "21.99", viejo: "32.00", img: "https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500", desc: "Carga rápida múltiple para varios smartphones a la vez." },
+        { id: 6, cat: "tecnologia", nombre: "Teclado Mecánico RGB Compacto", precio: "29.99", viejo: "45.00", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500", desc: "Ideal para oficina o gaming con luces regulables." },
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+        // HOGAR
+        { id: 7, cat: "hogar", nombre: "Lámpara LED Táctil Recargable", precio: "22.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500", desc: "Diseño moderno con 3 niveles de brillo táctil." },
+        { id: 8, cat: "hogar", nombre: "Mini Humidificador y Difusor LED", precio: "14.99", viejo: "22.00", img: "https://images.unsplash.com/photo-1546554137-f86b9593a222?w=500", desc: "Difusor de aromas ultsilencioso con ambientación." },
+        { id: 9, cat: "hogar", nombre: "Tira LED RGB Inteligente 5M", precio: "12.99", viejo: "18.99", img: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500", desc: "Iluminación ambiental personalizable con mando o móvil." },
+        { id: 10, cat: "hogar", nombre: "Dispensador de Agua Automático", precio: "11.99", viejo: "16.99", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4e?w=500", desc: "Bomba recargable USB para garrafas de agua." },
+        { id: 11, cat: "hogar", nombre: "Báscula Digital de Precisión", precio: "15.99", viejo: "24.00", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500", desc: "Medición corporal con conexión por Bluetooth a tu app." },
+        { id: 12, cat: "hogar", nombre: "Organizador de Especias Giratorio", precio: "18.50", viejo: "26.00", img: "https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=500", desc: "Ahorra espacio en tu cocina con este especiero de 360°." },
 
-    auth.onAuthStateChanged(user => {
-        const userInfo = document.getElementById('user-info');
-        const authBtn = document.getElementById('auth-action-btn');
+        // BELLEZA Y CUIDADO
+        { id: 13, cat: "belleza", nombre: "Limpiador Facial Ultrasónico", precio: "16.99", viejo: "25.00", img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500", desc: "Exfoliación suave y eliminación profunda de impurezas." },
+        { id: 14, cat: "belleza", nombre: "Pistola de Masaje Muscular", precio: "32.99", viejo: "49.99", img: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=500", desc: "Alivia contracturas y tensión con sus 4 cabezales." },
+        { id: 15, cat: "belleza", nombre: "Cortapelos Profesional Recargable", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=500", desc: "Para barba y cabello con corte preciso de titanio." },
+        { id: 16, cat: "belleza", nombre: "Espejo Maquillaje Luz LED", precio: "15.99", viejo: "22.99", img: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=500", desc: "Espejo táctil con rotación y luz blanca regulable." },
+        { id: 17, cat: "belleza", nombre: "Secador Moldeador 5 en 1", precio: "39.99", viejo: "59.99", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500", desc: "Riza, alisa y da volumen al cabello sin dañarlo." },
+        { id: 18, cat: "belleza", nombre: "Lámpara Uñas LED UV", precio: "13.99", viejo: "19.99", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500", desc: "Secado ultra rápido para esmaltado permanente." },
 
-        if (user) {
-            userInfo.innerText = user.displayName || user.email;
-            authBtn.innerText = 'Cerrar Sesión';
-            authBtn.onclick = () => auth.signOut();
-            closeAuthModal();
-        } else {
-            userInfo.innerText = '';
-            authBtn.innerText = 'Iniciar Sesión';
-            authBtn.onclick = () => toggleAuthModal();
-        }
-    });
+        // COCHE
+        { id: 19, cat: "coche", nombre: "Soporte Coche Carga Rápida", precio: "16.99", viejo: "24.99", img: "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500", desc: "Sujeción automática con carga inalámbrica." },
+        { id: 20, cat: "coche", nombre: "Aspirador de Mano USB", precio: "24.99", viejo: "35.00", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500", desc: "Compacto y potente para limpiar tu coche y casa." },
+        { id: 21, cat: "coche", nombre: "Transmisor FM Bluetooth Coche", precio: "9.99", viejo: "15.00", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", desc: "Escucha la música de tu móvil en la radio del coche." },
+        { id: 22, cat: "coche", nombre: "Compresor de Aire Portátil Digital", precio: "28.99", viejo: "40.00", img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", desc: "Infla neumáticos de coche, bici o balones rápido." },
+        { id: 23, cat: "coche", nombre: "Cámara DashCam Retrovisor HD", precio: "34.99", viejo: "50.00", img: "https://images.unsplash.com/photo-1508974239320-0a029497e820?w=500", desc: "Grabación continua de seguridad mientras conduces." },
+        { id: 24, cat: "coche", nombre: "Organizador Trasero para Asientos", precio: "11.50", viejo: "17.00", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500", desc: "Mantiene el coche ordenado con departamento para tablet." },
 
-    function toggleAuthModal() {
-        const modal = document.getElementById('auth-modal');
-        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        // MASCOTAS
+        { id: 25, cat: "mascotas", nombre: "Fuente de Agua para Mascotas", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=500", desc: "Agua filtrada y en movimiento para perros y gatos." },
+        { id: 26, cat: "mascotas", nombre: "Comedero Automático Programable", precio: "36.99", viejo: "55.00", img: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500", desc: "Dosifica las raciones de alimento de forma exacta." },
+        { id: 27, cat: "mascotas", nombre: "Cepillo Quitapelos QuitaPelusas", precio: "8.99", viejo: "14.00", img: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=500", desc: "Elimina pelos en sofás, ropa y alfombras al instante." },
+        { id: 28, cat: "mascotas", nombre: "Cama Viscoelástica para Perros/Gatos", precio: "25.99", viejo: "38.00", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=500", desc: "Máximo confort suave y lavable para el descanso." },
+        { id: 29, cat: "mascotas", nombre: "Arnés Antipirones Reflexivo", precio: "13.99", viejo: "19.99", img: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500", desc: "Paseo cómodo y seguro con tiras reflectantes." },
+        { id: 30, cat: "mascotas", nombre: "Juguete Interactivo con Láser", precio: "10.99", viejo: "16.00", img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500", desc: "Mantiene a tu gato activo y entretenido durante horas." }
+    ];
+
+    function renderizar(items) {
+        const container = document.getElementById('catalogo-container');
+        container.innerHTML = items.map(p => `
+            <div class="producto">
+                <img src="${p.img}" alt="${p.nombre}">
+                <h2>${p.nombre}</h2>
+                <p>${p.desc}</p>
+                <div class="precio-box">
+                    <span class="precio-anterior">${p.viejo} €</span>
+                    <span class="precio">${p.precio} €</span>
+                </div>
+                <a class="boton" href="https://wa.me/34622101177?text=Hola,%20quiero%20comprar%20el%20producto:%20${encodeURIComponent(p.nombre)}" target="_blank">
+                    Comprar por WhatsApp
+                </a>
+            </div>
+        `).join('');
     }
 
-    function closeAuthModal() {
-        document.getElementById('auth-modal').style.display = 'none';
-    }
+    function filtrarProductos() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const cat = document.getElementById('category-select').value;
 
-    function loginWithGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider).catch(error => {
-            alert("Error al iniciar sesión: " + error.message);
+        const filtrados = productos.filter(p => {
+            const coincideNombre = p.nombre.toLowerCase().includes(query);
+            const coincideCat = cat === 'todos' || p.cat === cat;
+            return coincideNombre && coincideCat;
         });
+
+        renderizar(filtrados);
     }
 
-    function loginWithEmail() {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        if (!email || !password) {
-            alert("Introduce correo y contraseña.");
-            return;
-        }
-
-        auth.signInWithEmailAndPassword(email, password)
-            .catch(error => {
-                if (error.code === 'auth/user-not-found') {
-                    return auth.createUserWithEmailAndPassword(email, password);
-                } else {
-                    alert("Error: " + error.message);
-                }
-            });
-    }
+    // Cargar los 30 productos en pantalla al iniciar
+    renderizar(productos);
 </script>
 
 </body>
