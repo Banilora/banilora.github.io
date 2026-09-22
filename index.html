@@ -25,7 +25,7 @@
         .controls-container input { flex-grow: 1; }
 
         .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; max-width: 1100px; margin: 20px auto 40px; padding: 0 20px; }
-        .producto { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .producto { position: relative; background: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
         .producto:hover { transform: translateY(-3px); }
         .producto img { width: 100%; height: 190px; object-fit: cover; border-radius: 8px; }
         .producto h2 { margin: 12px 0 6px; font-size: 16px; color: #111; }
@@ -34,6 +34,9 @@
         .precio-anterior { text-decoration: line-through; color: #999; font-size: 13px; margin-right: 6px; }
         .precio { font-size: 19px; font-weight: bold; color: #d32f2f; display: inline-block; }
         
+        /* Insignia de Oferta */
+        .badge { position: absolute; top: 10px; right: 10px; background: #d32f2f; color: white; padding: 4px 8px; font-size: 11px; font-weight: bold; border-radius: 4px; z-index: 2; }
+
         /* Botones dobles */
         .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
         .boton { display: block; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; transition: background 0.2s; }
@@ -87,49 +90,49 @@
 </footer>
 
 <script>
-    // Tu ID de Afiliado oficial asignado
+    // ID de Afiliado oficial de Banilora
     const AMAZON_TAG = "banilora21-21";
 
     const productos = [
         // TECNOLOGÍA
-        { id: 1, cat: "tecnologia", nombre: "Auriculares Inalámbricos Pro", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500", desc: "Sonido de alta fidelidad con estuche de carga rápida.", kw: "auriculares+inalambricos+bluetooth" },
-        { id: 2, cat: "tecnologia", nombre: "Smartwatch Deportivo HD", precio: "24.99", viejo: "39.99", img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500", desc: "Monitoreo de pulso, pasos, llamadas y notificaciones.", kw: "smartwatch+deportivo" },
-        { id: 3, cat: "tecnologia", nombre: "Mini Proyector Portátil HD", precio: "59.99", viejo: "89.99", img: "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=500", desc: "Cine en casa compacto para conectar tu móvil o consola.", kw: "mini+proyector+portatil" },
-        { id: 4, cat: "tecnologia", nombre: "Altavoz Bluetooth Impermeable", precio: "17.99", viejo: "25.00", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500", desc: "Potente sonido portátil para playa, piscina o casa.", kw: "altavoz+bluetooth+impermeable" },
-        { id: 5, cat: "tecnologia", nombre: "Batería Externa PowerBank 20000mAh", precio: "21.99", viejo: "32.00", img: "https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500", desc: "Carga rápida múltiple para varios smartphones a la vez.", kw: "powerbank+20000mah" },
-        { id: 6, cat: "tecnologia", nombre: "Teclado Mecánico RGB Compacto", precio: "29.99", viejo: "45.00", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500", desc: "Ideal para oficina o gaming con luces regulables.", kw: "teclado+mecanico+rgb" },
+        { id: 1, cat: "tecnologia", nombre: "Auriculares Inalámbricos Pro", precio: "18.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500", desc: "Sonido de alta fidelidad con estuche de carga rápida.", kw: "auriculares+inalambricos+bluetooth" },
+        { id: 2, cat: "tecnologia", nombre: "Smartwatch Deportivo HD", precio: "22.99", viejo: "39.99", img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500", desc: "Monitoreo de pulso, pasos, llamadas y notificaciones.", kw: "smartwatch+deportivo" },
+        { id: 3, cat: "tecnologia", nombre: "Mini Proyector Portátil HD", precio: "54.99", viejo: "89.99", img: "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=500", desc: "Cine en casa compacto para conectar tu móvil o consola.", kw: "mini+proyector+portatil" },
+        { id: 4, cat: "tecnologia", nombre: "Altavoz Bluetooth Impermeable", precio: "15.99", viejo: "25.00", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500", desc: "Potente sonido portátil para playa, piscina o casa.", kw: "altavoz+bluetooth+impermeable" },
+        { id: 5, cat: "tecnologia", nombre: "Batería Externa PowerBank 20000mAh", precio: "19.99", viejo: "32.00", img: "https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500", desc: "Carga rápida múltiple para varios smartphones a la vez.", kw: "powerbank+20000mah" },
+        { id: 6, cat: "tecnologia", nombre: "Teclado Mecánico RGB Compacto", precio: "26.99", viejo: "45.00", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500", desc: "Ideal para oficina o gaming con luces regulables.", kw: "teclado+mecanico+rgb" },
         
         // HOGAR
-        { id: 7, cat: "hogar", nombre: "Lámpara LED Táctil Recargable", precio: "22.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500", desc: "Diseño moderno con 3 niveles de brillo táctil.", kw: "lampara+led+tactil+recargable" },
-        { id: 8, cat: "hogar", nombre: "Mini Humidificador y Difusor LED", precio: "14.99", viejo: "22.00", img: "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=500", desc: "Difusor de aromas ultrasilencioso con ambientación.", kw: "humidificador+difusor+aromas" },
-        { id: 9, cat: "hogar", nombre: "Tira LED RGB Inteligente 5M", precio: "12.99", viejo: "18.99", img: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=500", desc: "Iluminación ambiental personalizable con mando o móvil.", kw: "tira+led+rgb+5m" },
-        { id: 10, cat: "hogar", nombre: "Dispensador de Agua Automático", precio: "11.99", viejo: "16.99", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4e?w=500", desc: "Bomba recargable USB para garrafas de agua.", kw: "dispensador+agua+garrafas" },
-        { id: 11, cat: "hogar", nombre: "Báscula Digital de Precisión", precio: "15.99", viejo: "24.00", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500", desc: "Medición corporal de peso rápida y precisa.", kw: "bascula+digital+bano" },
-        { id: 12, cat: "hogar", nombre: "Organizador de Especias Giratorio", precio: "18.50", viejo: "26.00", img: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500", desc: "Ahorra espacio en tu cocina con este especiero.", kw: "organizador+especias+giratorio" },
+        { id: 7, cat: "hogar", nombre: "Lámpara LED Táctil Recargable", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500", desc: "Diseño moderno con 3 niveles de brillo táctil.", kw: "lampara+led+tactil+recargable" },
+        { id: 8, cat: "hogar", nombre: "Mini Humidificador y Difusor LED", precio: "12.99", viejo: "22.00", img: "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=500", desc: "Difusor de aromas ultrasilencioso con ambientación.", kw: "humidificador+difusor+aromas" },
+        { id: 9, cat: "hogar", nombre: "Tira LED RGB Inteligente 5M", precio: "11.99", viejo: "18.99", img: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=500", desc: "Iluminación ambiental personalizable con mando o móvil.", kw: "tira+led+rgb+5m" },
+        { id: 10, cat: "hogar", nombre: "Dispensador de Agua Automático", precio: "9.99", viejo: "16.99", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4e?w=500", desc: "Bomba recargable USB para garrafas de agua.", kw: "dispensador+agua+garrafas" },
+        { id: 11, cat: "hogar", nombre: "Báscula Digital de Precisión", precio: "13.99", viejo: "24.00", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500", desc: "Medición corporal de peso rápida y precisa.", kw: "bascula+digital+bano" },
+        { id: 12, cat: "hogar", nombre: "Organizador de Especias Giratorio", precio: "16.50", viejo: "26.00", img: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500", desc: "Ahorra espacio en tu cocina con este especiero.", kw: "organizador+especias+giratorio" },
         
         // BELLEZA
-        { id: 13, cat: "belleza", nombre: "Limpiador Facial Ultrasónico", precio: "16.99", viejo: "25.00", img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500", desc: "Exfoliación suave y eliminación profunda de impurezas.", kw: "limpiador+facial+ultrasonico" },
-        { id: 14, cat: "belleza", nombre: "Pistola de Masaje Muscular", precio: "32.99", viejo: "49.99", img: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=500", desc: "Alivia contracturas y tensión con sus cabezales.", kw: "pistola+de+masaje+muscular" },
-        { id: 15, cat: "belleza", nombre: "Cortapelos Profesional Recargable", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=500", desc: "Para barba y cabello con corte preciso de titanio.", kw: "cortapelos+profesional" },
-        { id: 16, cat: "belleza", nombre: "Espejo Maquillaje Luz LED", precio: "15.99", viejo: "22.99", img: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=500", desc: "Espejo táctil con rotación y luz blanca regulable.", kw: "espejo+maquillaje+led" },
-        { id: 17, cat: "belleza", nombre: "Secador Moldeador 5 en 1", precio: "39.99", viejo: "59.99", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500", desc: "Riza, alisa y da volumen al cabello sin dañarlo.", kw: "moldeador+pelo+5+en+1" },
-        { id: 18, cat: "belleza", nombre: "Lámpara Uñas LED UV", precio: "13.99", viejo: "19.99", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500", desc: "Secado ultra rápido para esmaltado permanente.", kw: "lampara+led+uv+unas" },
+        { id: 13, cat: "belleza", nombre: "Limpiador Facial Ultrasónico", precio: "14.99", viejo: "25.00", img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500", desc: "Exfoliación suave y eliminación profunda de impurezas.", kw: "limpiador+facial+ultrasonico" },
+        { id: 14, cat: "belleza", nombre: "Pistola de Masaje Muscular", precio: "29.99", viejo: "49.99", img: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=500", desc: "Alivia contracturas y tensión con sus cabezales.", kw: "pistola+de+masaje+muscular" },
+        { id: 15, cat: "belleza", nombre: "Cortapelos Profesional Recargable", precio: "17.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=500", desc: "Para barba y cabello con corte preciso de titanio.", kw: "cortapelos+profesional" },
+        { id: 16, cat: "belleza", nombre: "Espejo Maquillaje Luz LED", precio: "14.99", viejo: "22.99", img: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=500", desc: "Espejo táctil con rotación y luz blanca regulable.", kw: "espejo+maquillaje+led" },
+        { id: 17, cat: "belleza", nombre: "Secador Moldeador 5 en 1", precio: "34.99", viejo: "59.99", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500", desc: "Riza, alisa y da volumen al cabello sin dañarlo.", kw: "moldeador+pelo+5+en+1" },
+        { id: 18, cat: "belleza", nombre: "Lámpara Uñas LED UV", precio: "11.99", viejo: "19.99", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500", desc: "Secado ultra rápido para esmaltado permanente.", kw: "lampara+led+uv+unas" },
         
         // COCHE
-        { id: 19, cat: "coche", nombre: "Soporte Coche Carga Rápida", precio: "16.99", viejo: "24.99", img: "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500", desc: "Sujeción automática con carga inalámbrica.", kw: "soporte+coche+carga+inalambrica" },
-        { id: 20, cat: "coche", nombre: "Aspirador de Mano USB", precio: "24.99", viejo: "35.00", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500", desc: "Compacto y potente para limpiar tu coche y casa.", kw: "aspirador+mano+coche" },
-        { id: 21, cat: "coche", nombre: "Transmisor FM Bluetooth Coche", precio: "9.99", viejo: "15.00", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", desc: "Escucha la música de tu móvil en la radio del coche.", kw: "transmisor+fm+bluetooth" },
-        { id: 22, cat: "coche", nombre: "Compresor de Aire Portátil Digital", precio: "28.99", viejo: "40.00", img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", desc: "Infla neumáticos de coche, bici o balones rápido.", kw: "compresor+aire+portatil" },
-        { id: 23, cat: "coche", nombre: "Cámara DashCam Retrovisor HD", precio: "34.99", viejo: "50.00", img: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", desc: "Grabación continua de seguridad mientras conduces.", kw: "dashcam+coche" },
-        { id: 24, cat: "coche", nombre: "Organizador Trasero para Asientos", precio: "11.50", viejo: "17.00", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500", desc: "Mantiene el coche ordenado con departamentos de guardado.", kw: "organizador+asiento+coche" },
+        { id: 19, cat: "coche", nombre: "Soporte Coche Carga Rápida", precio: "14.99", viejo: "24.99", img: "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500", desc: "Sujeción automática con carga inalámbrica.", kw: "soporte+coche+carga+inalambrica" },
+        { id: 20, cat: "coche", nombre: "Aspirador de Mano USB", precio: "21.99", viejo: "35.00", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500", desc: "Compacto y potente para limpiar tu coche y casa.", kw: "aspirador+mano+coche" },
+        { id: 21, cat: "coche", nombre: "Transmisor FM Bluetooth Coche", precio: "8.99", viejo: "15.00", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", desc: "Escucha la música de tu móvil en la radio del coche.", kw: "transmisor+fm+bluetooth" },
+        { id: 22, cat: "coche", nombre: "Compresor de Aire Portátil Digital", precio: "25.99", viejo: "40.00", img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", desc: "Infla neumáticos de coche, bici o balones rápido.", kw: "compresor+aire+portatil" },
+        { id: 23, cat: "coche", nombre: "Cámara DashCam Retrovisor HD", precio: "29.99", viejo: "50.00", img: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", desc: "Grabación continua de seguridad mientras conduces.", kw: "dashcam+coche" },
+        { id: 24, cat: "coche", nombre: "Organizador Trasero para Asientos", precio: "9.99", viejo: "17.00", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500", desc: "Mantiene el coche ordenado con departamentos de guardado.", kw: "organizador+asiento+coche" },
         
         // MASCOTAS
-        { id: 25, cat: "mascotas", nombre: "Fuente de Agua para Mascotas", precio: "19.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=500", desc: "Agua filtrada y en movimiento para perros y gatos.", kw: "fuente+agua+mascotas" },
-        { id: 26, cat: "mascotas", nombre: "Comedero Automático Programable", precio: "36.99", viejo: "55.00", img: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500", desc: "Dosifica las raciones de alimento de forma exacta.", kw: "comedero+automatico+mascotas" },
-        { id: 27, cat: "mascotas", nombre: "Cepillo Quitapelos QuitaPelusas", precio: "8.99", viejo: "14.00", img: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=500", desc: "Elimina pelos en sofás, ropa y alfombras al instante.", kw: "cepillo+quitapelos+perro+gato" },
-        { id: 28, cat: "mascotas", nombre: "Cama Viscoelástica para Perros/Gatos", precio: "25.99", viejo: "38.00", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=500", desc: "Máximo confort suave y lavable para el descanso.", kw: "cama+perro+viscoelastica" },
-        { id: 29, cat: "mascotas", nombre: "Arnés Antipirones Reflexivo", precio: "13.99", viejo: "19.99", img: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500", desc: "Paseo cómodo y seguro con tiras reflectantes.", kw: "arnes+perro+reflectante" },
-        { id: 30, cat: "mascotas", nombre: "Juguete Interactivo con Láser", precio: "10.99", viejo: "16.00", img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500", desc: "Mantiene a tu gato activo y entretenido durante horas.", kw: "juguete+laser+gatos" }
+        { id: 25, cat: "mascotas", nombre: "Fuente de Agua para Mascotas", precio: "17.99", viejo: "29.99", img: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=500", desc: "Agua filtrada y en movimiento para perros y gatos.", kw: "fuente+agua+mascotas" },
+        { id: 26, cat: "mascotas", nombre: "Comedero Automático Programable", precio: "32.99", viejo: "55.00", img: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500", desc: "Dosifica las raciones de alimento de forma exacta.", kw: "comedero+automatico+mascotas" },
+        { id: 27, cat: "mascotas", nombre: "Cepillo Quitapelos QuitaPelusas", precio: "7.99", viejo: "14.00", img: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=500", desc: "Elimina pelos en sofás, ropa y alfombras al instante.", kw: "cepillo+quitapelos+perro+gato" },
+        { id: 28, cat: "mascotas", nombre: "Cama Viscoelástica para Perros/Gatos", precio: "22.99", viejo: "38.00", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=500", desc: "Máximo confort suave y lavable para el descanso.", kw: "cama+perro+viscoelastica" },
+        { id: 29, cat: "mascotas", nombre: "Arnés Antipirones Reflexivo", precio: "11.99", viejo: "19.99", img: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500", desc: "Paseo cómodo y seguro con tiras reflectantes.", kw: "arnes+perro+reflectante" },
+        { id: 30, cat: "mascotas", nombre: "Juguete Interactivo con Láser", precio: "8.99", viejo: "16.00", img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500", desc: "Mantiene a tu gato activo y entretenido durante horas.", kw: "juguete+laser+gatos" }
     ];
 
     function renderizar(items) {
@@ -140,6 +143,7 @@
 
             return `
             <div class="producto">
+                <span class="badge">OFERTA</span>
                 <img src="${p.img}" alt="${p.nombre}">
                 <h2>${p.nombre}</h2>
                 <p>${p.desc}</p>
